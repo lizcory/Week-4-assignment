@@ -19,8 +19,21 @@ d3.csv('data/covid_data.csv')
             return d;
         });
 
+        let states = new Set(data.map(d => d.state));
+        states = Array.from(states);
+        states = states.sort();
+        
         // BAR CHART
         let barChart = new BarChart();
+
+        barChart
+            .margin(margins)
+            .size(size)
+            .selection(containerG)
+            .data(data)
+            .filterState(states[0])
+            .dispatch(dispatch)
+            .draw();
 
 
         // ANNOTATIONS
